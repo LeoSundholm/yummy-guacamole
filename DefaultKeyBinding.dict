@@ -1,0 +1,27 @@
+{
+/* Remap Home / End keys to be correct */
+"\UF729" = "moveToBeginningOfLine:"; /* Home */
+"\UF72B" = "moveToEndOfLine:"; /* End */
+"$\UF729" = "moveToBeginningOfLineAndModifySelection:"; /* Shift + Home */
+"$\UF72B" = "moveToEndOfLineAndModifySelection:"; /* Shift + End */
+"^\UF729" = "moveToBeginningOfDocument:"; /* Ctrl + Home */
+"^\UF72B" = "moveToEndOfDocument:"; /* Ctrl + End */
+"$^\UF729" = "moveToBeginningOfDocumentAndModifySelection:"; /* Shift + Ctrl + Home */
+"$^\UF72B" = "moveToEndOfDocumentAndModifySelection:"; /* Shift + Ctrl + End */
+"@\UF729" = "moveToBeginningOfDocument:"; /* Cmd + Home */
+"@\UF72B" = "moveToEndOfDocument:"; /* Cmd + End */
+"$@\UF729" = "moveToBeginningOfDocumentAndModifySelection:"; /* Shift + Cmd + Home */
+"$@\UF72B" = "moveToEndOfDocumentAndModifySelection:"; /* Shift + Cmd + End */
+
+/* Remap ctrl + left/right to be correct */
+"^\UF703" = ("moveWordForward:"); /* ctrl + right */
+"^$\UF703" = ("moveWordForwardAndModifySelection:"); /* ctrl + shift + right */
+"^\UF702" = ("moveWordBackward:"); /* ctrl + left */
+"^$\UF702" = ("moveWordBackwardAndModifySelection:"); /* ctrl + shift + left */
+"^\U007f" = ("deleteWordBackward:");
+
+/* Extra copy and paste (fungerar inte :( )*/
+"^c" = ("copy:");
+"^x" = ("cut:");
+"^v" = ("pasteAsRichText:");
+}

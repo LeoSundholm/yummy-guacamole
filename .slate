@@ -1,0 +1,57 @@
+alias full          move screenOriginX;screenOriginY                  screenSizeX;screenSizeY
+alias tophalf       move screenOriginX;screenOriginY                  screenSizeX;screenSizeY/2
+alias bottomhalf    move screenOriginX;screenOriginY+screenSizeY/2  screenSizeX;screenSizeY/2
+alias lefthalf      move screenOriginX;screenOriginY                  screenSizeX/2;screenSizeY
+alias lefttopcorner move screenOriginX;screenOriginY                  screenSizeX/2;screenSizeY/2
+alias leftbottomcorner move screenOriginX;screenOriginY+screenSizeY/2 screenSizeX/2;screenSizeY/2
+alias righthalf     move screenOriginX+screenSizeX/2;screenOriginY    screenSizeX/2;screenSizeY
+alias righttopcorner move screenOriginX+screenSizeX/2;screenOriginY   screenSizeX/2;screenSizeY/2
+alias rightbottomcorner move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2 screenSizeX/2;screenSizeY/2
+
+#configs
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+config focusCheckWidth 500
+config focusCheckWidthMax 9999
+config keyboardLayout dvorak
+ 
+#hint configs
+config windowHintsShowIcons true
+config windowHintsIgnoreHiddenWindows false
+config windowHintsSpread true
+config windowHintsFontSize 50
+config windowHintsDuration 999
+config windowHintsFontColor 0;0;0;0.7
+config windowHintsBackgroundColor 50;53;58;0.7
+
+#hints
+#bind e:cmd hint ASDFZXCQWE
+#bind e:ctrl hint ASDFGHJKLZXCVBNM
+
+#relaunch
+bind s:cmd;ctrl;shift;alt relaunch
+
+#corner locations
+#bind left:ctrl;alt;cmd ${lefttopcorner}
+bind up:ctrl;alt;cmd ${righttopcorner}
+bind down:ctrl;alt;cmd ${leftbottomcorner}
+#bind right:ctrl;alt;cmd ${rightbottomcorner}
+
+#fullscreen
+bind up:ctrl;alt ${full}
+
+#nudge bindings
+bind left:shift;ctrl;alt nudge -5% +0
+bind right:shift;ctrl;alt nudge +5% +0
+bind down:shift;ctrl;alt nudge +0 +5%
+bind up:shift;ctrl;alt nudge +0% -5%
+
+#nudgu resize
+bind left:shift;ctrl;alt;cmd        resize -5% +0
+bind up:shift;ctrl;alt;cmd          resize +0   -5%
+bind down:shift;ctrl;alt;cmd        resize +0   +5%
+bind right:shift;ctrl;alt;cmd  resize +5% +0
+
+#grid 
+#bind 1:shift;cmd grid 0:3,1 1:3,1
