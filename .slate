@@ -14,8 +14,8 @@ config nudgePercentOf screenSize
 config resizePercentOf screenSize
 config focusCheckWidth 500
 config focusCheckWidthMax 9999
-config keyboardLayout dvorak
- 
+#config keyboardLayout dvorak
+
 #hint configs
 config windowHintsShowIcons true
 config windowHintsIgnoreHiddenWindows false
@@ -39,7 +39,7 @@ bind down:ctrl;alt;cmd ${leftbottomcorner}
 #bind right:ctrl;alt;cmd ${rightbottomcorner}
 
 #fullscreen
-bind up:ctrl;alt ${full}
+#bind up:ctrl;alt ${full}
 
 #nudge bindings
 bind left:shift;ctrl;alt nudge -5% +0

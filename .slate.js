@@ -12,6 +12,13 @@ var moveRightHalfScreen = slate.operation("move", {
 	"height" : "screenSizeY"
 });
 
+var moveFullScreen = slate.operation("move", {
+	"x" : "screenOriginX",
+	"y" : "screenOriginY",
+	"width" : "screenSizeX",
+	"height" : "screenSizeY"
+});
+
 var moveTopLeftCorner = slate.operation("move", {
 	"x" : "screenOriginX",
 	"y" : "screenOriginY",
@@ -26,12 +33,39 @@ var moveBottomRightCorner = slate.operation("move", {
 	"height" : "screenSizeY/2"
 });
 
+slate.bind("up:ctrl;alt", function(win){
+	if (win == null) {return;};
+	visibleRect = win.screen().visibleRect();
+	if(win.size().width == visibleRect.width && win.size().height == visibleRect.height){
+		win.doOperation(slate.operation("move", {
+			"x" : "screenOriginX",
+			"y" : "screenOriginY",
+			"width" : "screenSizeX",
+			"height" : "screenSizeY/2"
+		}));
+} else {
+	win.doOperation(moveFullScreen);
+}
+});
+
 slate.bind("down:ctrl;alt", function(win){
 	if (win == null) {return;};
+
 	var visibleRect = win.screen().visibleRect();
-	var width = visibleRect.width * 0.65;
-	var height = visibleRect.height * 0.65;
-	
+	var width = Math.floor(visibleRect.width * 0.65);
+	var height = Math.floor(visibleRect.height * 0.65);
+
+	if (win.size().width == width && win.size().height == height) {
+		win.doOperation(slate.operation("move", {
+			"x" : "screenOriginX",
+			"y" : "screenOriginY+screenSizeY/2",
+			"width" : "screenSizeX",
+			"height" : "screenSizeY/2",
+		}));
+
+		return;
+	}
+
 	var middleX = visibleRect.x + visibleRect.width/2 - width/2;
 	var middleY = visibleRect.y + visibleRect.height/2 - height/2;
 	
@@ -184,10 +218,15 @@ slate.bind("[:ctrl;alt", function(win){
 	}));
 });
 
-//throw
+//throw proportional
 slate.bind("[:ctrl;cmd", function(win){slateThrowProportional(win, "left");});
 slate.bind(",:ctrl;cmd", function(win){slateThrowProportional(win, "left");});//lolwut, this works at home. I have serously configured my keyboard too much and can't keep up anymore
 slate.bind("':ctrl;cmd", function(win){slateThrowProportional(win, "right");});
+
+//throw 
+//slate.bind("[:ctrl;cmd", function(win){normalThrow(win, "left");});
+//slate.bind(",:ctrl;cmd", function(win){normalThrow(win, "left");});//lolwut, this works at home. I have serously configured my keyboard too much and can't keep up anymore
+//slate.bind("':ctrl;cmd", function(win){normalThrow(win, "right");});
 
 //flip
 slate.bind("f:ctrl;alt;cmd", function(){
@@ -232,13 +271,19 @@ function slateThrowProportional(win, direction){
 	
 }
 
+function normalThrow(win, direction){
+	if (win == null) {return;};
+
+	win.doOperation(slate.operation("throw", { "screen" : direction}));
+}
+
 var runIfMap  = {
-	"Jump Desktop": "/Applications/Jump Desktop.app",
 	"Google Chrome": "/Applications/Google Chrome.app",
 	"Parallels Desktop": "/Applications/Parallels Desktop.app",
 	"HipChat": "/Applications/HipChat.app",
 	"Skype": "/Applications/Skype.app",
 	"SourceTree": "/Applications/SourceTree.app",
+	"Tower": "/Applications/Tower.app",
 	"Notes": "/Applications/Notes.app",
 	"Finder": "System/Library/CoreServices/Finder.app",
 	"Xcode": "/Applications/Xcode.app",
@@ -249,7 +294,9 @@ var runIfMap  = {
 	"Unity": "/Applications/Unity/Unity.app",
 	"Activity Monitor": "/Applications/Utilities/Activity Monitor.app",
 	"Messages": "/Applications/Messages.app",
+	"Messenger": "/Applications/Messenger.app",
 	"Slack": "Applications/Slack.app",
+	"Rider EAP": "Applications/Rider EAP.app",
 };
 
 function isAppRunning(name){
@@ -281,15 +328,14 @@ function runOrQuit(name){
 	if (!isAppRunning(name)) {
 		openApplication(name);
 	} else {
-		//this isn't working D:
-		var str = "osascript -e 'quit app \"" + runIfMap[name] + "\"'";
+		var str = "/usr/bin/osascript -e 'quit app \"" + runIfMap[name] + "\"'";
 		slate.shell(str);
 	}
 }
 
 //toggle wifi
 slate.bind("w:ctrl;cmd", function() { wifiToggle(); });
-var wifiOn = false;
+var wifiOn = true;
 function wifiToggle() {
  if(wifiOn) {
    slate.shell("/usr/sbin/networksetup -setairportpower airport off");
@@ -299,20 +345,27 @@ function wifiToggle() {
  wifiOn = !wifiOn;
 }
 
+slate.bind("i:ctrl;cmd", function() { fuckYou(); });
+function fuckYou() {
+	slate.shell("/usr/bin/say BOOM!");
+}
+
 slate.bind("a:ctrl;cmd", function(){runIfAndFocus("Parallels Desktop");});
 slate.bind("b:ctrl;cmd", function(){runIfAndFocus("Sublime Text");});
 slate.bind("c:ctrl;cmd", function(){runIfAndFocus("Google Chrome");});
-slate.bind("g:ctrl;cmd", function(){runIfAndFocus("SourceTree");});
+//slate.bind("g:ctrl;cmd", function(){runIfAndFocus("SourceTree");});
+slate.bind("g:ctrl;cmd", function(){runIfAndFocus("Tower");});
+slate.bind("h:ctrl;cmd", function(){runIfAndFocus("Rider EAP");});
 slate.bind("l:ctrl;cmd", function(){runIfAndFocus("Slack");});
 slate.bind("m:ctrl;cmd", function(){runIfAndFocus("Messages");});
 slate.bind("n:ctrl;cmd", function(){runIfAndFocus("Notes");});
 slate.bind("o:ctrl;cmd", function(){runIfAndFocus("Spotify");});
 slate.bind("p:ctrl;cmd", function(){runIfAndFocus("Parallels Desktop");});
+slate.bind("r:ctrl;cmd", function(){runIfAndFocus("Messenger");});
 slate.bind("s:ctrl;cmd", function(){runIfAndFocus("Skype");});
 slate.bind("t:ctrl;cmd", function(){runIfAndFocus("Terminal");});
 slate.bind("u:ctrl;cmd", function(){runIfAndFocus("Unity");});
-slate.bind("x:ctrl;cmd", function(){runIfAndFocus("Xcode");});
-slate.bind("q:ctrl;cmd", function(){runIfAndFocus("Activity Monitor");}); //unfortunately, when I need this something has usually crashed in a way that slate also stops working
+slate.bind("x:ctrl;cmd", function(){runIfAndFocus("Xcode");})
 
 slate.bind("e:ctrl;cmd", function(){
 	runIfAndFocus("Finder");
