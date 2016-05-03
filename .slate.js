@@ -79,9 +79,11 @@ slate.bind("down:ctrl;alt", function(win){
 
 slate.bind("left:ctrl;alt", function(win){
 	if (win == null) {return;};
+
 	visibleRect = win.screen().visibleRect();
-	if(win.size().width > (visibleRect.width/2 - 10)
-		&& win.size().width < (visibleRect.width/2 + 10)
+	var halfScreenWidth = Math.floor(visibleRect.width/2);
+
+	if(win.size().width == halfScreenWidth
 		&& win.topLeft().x == visibleRect.x
 		&& win.size().height == (visibleRect.height)){
 		win.doOperation(slate.operation("throw", {
@@ -98,9 +100,11 @@ slate.bind("left:ctrl;alt", function(win){
 
 slate.bind("right:ctrl;alt", function(win){
 	if (win == null) {return;};
+
 	visibleRect = win.screen().visibleRect();
-	if(win.size().width > visibleRect.width/2 - 10
-		&& win.size().width < visibleRect.width/2 + 10
+	var halfScreenWidth = Math.floor(visibleRect.width/2);
+
+	if(win.size().width == halfScreenWidth
 		&& win.topLeft().x == (visibleRect.x + visibleRect.width/2)
 		&& win.size().height == (visibleRect.height)){
 		win.doOperation(slate.operation("throw", {
@@ -117,13 +121,15 @@ slate.bind("right:ctrl;alt", function(win){
 
 slate.bind("left:ctrl;alt;cmd", function(win){
 	if (win == null) {return;};
+
 	visibleRect = win.screen().visibleRect();
-	if(win.size().width > (visibleRect.width/2 - 10)
-		&& win.size().width < (visibleRect.width/2 + 10)
+	var halfScreenWidth = Math.floor(visibleRect.width/2);
+	var halfScreenHeight = Math.floor(visibleRect.height/2);
+
+	if(win.size().width == halfScreenWidth
 		&& win.topLeft().x == visibleRect.x
 		&& win.topLeft().y == visibleRect.y
-		&& win.size().height > (visibleRect.height/2 - 10)
-		&& win.size().height < (visibleRect.height/2 + 10)){
+		&& win.size().height == halfScreenHeight){
 		win.doOperation(slate.operation("throw", {
 			"x" : "screenOriginX+screenSizeX/2",
 			"y" : "screenOriginY",
@@ -131,13 +137,10 @@ slate.bind("left:ctrl;alt;cmd", function(win){
 			"height" : "screenSizeY/2",
 			"screen" : "left"
 		}));
-}else if(win.size().width > (visibleRect.width/2 - 10)
-		&& win.size().width < (visibleRect.width/2 + 10)
+}else if(win.size().width == halfScreenWidth
 		&& win.topLeft().x == visibleRect.x
-		&& win.topLeft().y > (visibleRect.y + visibleRect.height/2 - 10)
-		&& win.topLeft().y < (visibleRect.y + visibleRect.height/2 + 10)
-		&& win.size().height > (visibleRect.height/2 - 10)
-		&& win.size().height < (visibleRect.height/2 + 10)){
+		&& win.topLeft().y == (visibleRect.y + halfScreenHeight)
+		&& win.size().height == halfScreenHeight){
 		win.doOperation(slate.operation("throw", {
 			"x" : "screenOriginX+screenSizeX/2",
 			"y" : "screenOriginY+screenSizeY/2",
@@ -152,13 +155,15 @@ slate.bind("left:ctrl;alt;cmd", function(win){
 
 slate.bind("right:ctrl;alt;cmd", function(win){
 	if (win == null) {return;};
+
 	visibleRect = win.screen().visibleRect();
-	if(win.size().width > (visibleRect.width/2 - 10)
-		&& win.size().width < (visibleRect.width/2 + 10)
-		&& win.topLeft().x == (visibleRect.x + visibleRect.width/2)
+	var halfScreenWidth = Math.floor(visibleRect.width/2);
+	var halfScreenHeight = Math.floor(visibleRect.height/2);
+
+	if(win.size().width == halfScreenWidth
+		&& win.topLeft().x == (visibleRect.x + halfScreenWidth)
 		&& win.topLeft().y == visibleRect.y
-		&& win.size().height > (visibleRect.height/2 - 10)
-		&& win.size().height < (visibleRect.height/2 + 10)){
+		&& win.size().height == halfScreenHeight){
 		win.doOperation(slate.operation("throw", {
 			"x" : "screenOriginX",
 			"y" : "screenOriginY",
@@ -166,14 +171,10 @@ slate.bind("right:ctrl;alt;cmd", function(win){
 			"height" : "screenSizeY/2",
 			"screen" : "right"
 		}));
-}else if(win.size().width > (visibleRect.width/2 - 10)
-		&& win.size().width < (visibleRect.width/2 + 10)
-		&& win.topLeft().x == (visibleRect.x + visibleRect.width/2)
-		&& win.topLeft().y > (visibleRect.y + visibleRect.height/2 - 10)
-		&& win.topLeft().y < (visibleRect.y + visibleRect.height/2 + 10)
-		&& win.size().height > (visibleRect.height/2 - 10)
-		&& win.size().height < (visibleRect.height/2 + 10)){
-		slate.log("throw right");
+}else if(win.size().width == halfScreenWidth
+		&& win.topLeft().x == (visibleRect.x + halfScreenWidth)
+		&& win.topLeft().y == (visibleRect.y + halfScreenHeight)
+		&& win.size().height == halfScreenHeight){
 		win.doOperation(slate.operation("throw", {
 			"x" : "screenOriginX",
 			"y" : "screenOriginY+screenSizeY/2",
@@ -182,8 +183,6 @@ slate.bind("right:ctrl;alt;cmd", function(win){
 			"screen" : "right"
 		}));
 } else {
-	slate.log(win.topLeft().x == (visibleRect.x + visibleRect.width/2));
-	slate.log(win.topLeft().y == (visibleRect.y + visibleRect.height/2));
 	win.doOperation(moveBottomRightCorner);
 }
 });
@@ -367,12 +366,22 @@ slate.bind("t:ctrl;cmd", function(){runIfAndFocus("Terminal");});
 slate.bind("u:ctrl;cmd", function(){runIfAndFocus("Unity");});
 slate.bind("x:ctrl;cmd", function(){runIfAndFocus("Xcode");})
 
+var finderWindowCount = 0;
 slate.bind("e:ctrl;cmd", function(){
 	runIfAndFocus("Finder");
-	if (slate.app().mainWindow == undefined) {
-		//did not work, try something else later
-		slate.shell("/usr/bin/open/Applications/");
-	};
+	
+	slate.eachApp(function(appObject){
+		if (appObject.name() == "Finder") {
+			finderWindowCount = 0;
+			appObject.eachWindow(function(windowObject){
+				finderWindowCount++;
+			});
+		}
+	});
+
+	if (finderWindowCount == 0) {
+		slate.shell("/usr/bin/open ./Users/Woland/");
+	}
 });
 
 /*
