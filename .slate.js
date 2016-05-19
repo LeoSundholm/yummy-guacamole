@@ -36,7 +36,8 @@ var moveBottomRightCorner = slate.operation("move", {
 slate.bind("up:ctrl;alt", function(win){
 	if (win == null) {return;};
 	visibleRect = win.screen().visibleRect();
-	if(win.size().width == visibleRect.width && win.size().height == visibleRect.height){
+	if(win.size().width == visibleRect.width && win.size().height == visibleRect.height
+		&& win.topLeft().x == 0){
 		win.doOperation(slate.operation("move", {
 			"x" : "screenOriginX",
 			"y" : "screenOriginY",
@@ -54,6 +55,7 @@ slate.bind("down:ctrl;alt", function(win){
 	var visibleRect = win.screen().visibleRect();
 	var width = Math.floor(visibleRect.width * 0.65);
 	var height = Math.floor(visibleRect.height * 0.65);
+	
 
 	if (win.size().width == width && win.size().height == height) {
 		win.doOperation(slate.operation("move", {
