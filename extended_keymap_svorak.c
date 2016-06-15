@@ -28,16 +28,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [4] = { /* Lower */
   {LSFT(KC_EQUAL), LSFT(KC_1),	 LSFT(KC_2),	    LSFT(KC_3),	LALT(KC_4),	    LSFT(KC_5),	      LSFT(KC_6),	LSFT(KC_7),	LSFT(KC_8),	      LSFT(KC_9),	      LSFT(KC_0),   	KC_MINUS},	
   {KC_EQUAL,       LALT(KC_2),	 LSFT(KC_SLASH),	KC_GRAVE,	  LSFT(KC_GRAVE),	LSFT(LALT(KC_7)),	LALT(KC_7),	KC_BSLASH,	LSFT(LALT(KC_8)),	LSFT(LALT(KC_9)),	LSFT(KC_MINUS),	KC_SLASH},
-  {KC_TRNS,	       LSFT(KC_DOT), KC_TRNS,	        KC_TRNS,	  KC_TRNS,	      KC_TRNS,	        KC_TRNS,	  KC_TRNS,	  LALT(KC_8),	      LALT(KC_9),	      KC_TRNS,	      LSFT(KC_BSLASH)},	
+  {KC_TRNS,	       LSFT(KC_DOT), KC_TRNS,	        KC_TRNS,	  KC_TRNS,	      KC_TRNS,	        KC_TRNS,	  KC_COMMA,	  LALT(KC_8),	      LALT(KC_9),	      KC_TRNS,	      LSFT(KC_BSLASH)},	
   {KC_TRNS,	       KC_TRNS,	     KC_TRNS,	        KC_TRNS,	  KC_TRNS,	      KC_TRNS,	        KC_TRNS,	  KC_TRNS,	  KC_TRNS,	        KC_TRNS,        	KC_TRNS,        KC_TRNS}
 },
 [5] = { /* META */
   {KC_MPLY,  KC_HOME,  KC_UP,    KC_END,   KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_HOME,  KC_UP,    KC_END,   KC_TRNS, KC_DELETE}, 
   {KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_PGUP,    KC_TRNS,  KC_PGUP,    KC_LEFT,  KC_DOWN,  KC_RIGHT, KC_TRNS, KC_TRNS},
-  {KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_PGDOWN,  KC_TRNS,  KC_PGDOWN,  KC_TRNS,  KC_VOLD,  KC_VOLU,  KC_MPRV,  KC_MNXT},  
-  {KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,    KC_TRNS,  KC_TRNS,  FUNC(6),  FUNC(4), FUNC(5)}
+  {KC_TRNS,  FUNC(27), FUNC(10), FUNC(8),  FUNC(9),    KC_TRNS, KC_PGDOWN,  KC_TRNS,  KC_VOLD,  KC_VOLU,  KC_MPRV, KC_MNXT},  
+  {KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,    KC_MPLY,  KC_MPLY,    KC_TRNS,  KC_TRNS,  FUNC(6),  FUNC(4), FUNC(5)}
 }
 };
+
+enum macro_id {
+    SHRUG,
+    COPY,
+    PASTE,
+    CUT,
+    UNDO,
+};
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+    keyevent_t event = record->event;
+ 
+    switch (id) {
+        case SHRUG:
+            return (event.pressed ?
+                    MACRO( D(LALT), D(LSHIFT), T(G), T(7), U(LALT), T(8), T(9), T(7), D(LALT), T(G), END ) : 
+                    MACRO( END ) );
+        case COPY:
+            return (event.pressed ?
+                    MACRO( D(LGUI), T(C), U(LGUI), END ) :
+                    MACRO( END ) );
+        case PASTE:
+            return (event.pressed ?
+                    MACRO( D(LGUI), T(V), U(LGUI), END ) :
+                    MACRO( END ) );
+        case CUT:
+            return (event.pressed ?
+                    MACRO( D(LGUI), T(X), U(LGUI), END ) :
+                    MACRO( END ) );
+        case UNDO:
+            return (event.pressed ?
+                    MACRO( D(LGUI), T(Z), U(LGUI), END ) :
+                    MACRO( END ) );
+    }
+    return MACRO_NONE;
+}
 
 const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_MOMENTARY(3),  // to first Fn overlay ("raise")
@@ -49,6 +86,11 @@ const uint16_t PROGMEM fn_actions[] = {
     [6] = ACTION_DEFAULT_LAYER_SET(2), // SoR
 
     //[7] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_COMMA), //hold COMMA for shift, release for normal comma
+    [7] = ACTION_MACRO(SHRUG), 
+    [8] = ACTION_MACRO(COPY), 
+    [9] = ACTION_MACRO(PASTE), 
+    [10] = ACTION_MACRO(CUT), 
+    [27] = ACTION_MACRO(UNDO), 
 
     [11] = ACTION_MODS_KEY(MOD_LSFT, KC_1),
     [12] = ACTION_MODS_KEY(MOD_LSFT, KC_2),
