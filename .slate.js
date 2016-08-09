@@ -36,8 +36,7 @@ var moveBottomRightCorner = slate.operation("move", {
 slate.bind("up:ctrl;alt", function(win){
 	if (win == null) {return;};
 	visibleRect = win.screen().visibleRect();
-	if(win.size().width == visibleRect.width && win.size().height == visibleRect.height
-		&& win.topLeft().x == 0){
+	if(win.size().width == visibleRect.width && win.size().height == visibleRect.height){
 		win.doOperation(slate.operation("move", {
 			"x" : "screenOriginX",
 			"y" : "screenOriginY",
@@ -346,9 +345,9 @@ function wifiToggle() {
  wifiOn = !wifiOn;
 }
 
-slate.bind("i:ctrl;cmd", function() { fuckYou(); });
-function fuckYou() {
-	slate.shell("/usr/bin/say BOOM!");
+slate.bind("i:ctrl;cmd", function() { scambiGood(); });
+function scambiGood() {
+	slate.shell("/usr/bin/say -v 'Pipe Organ' 'Scambigood' && /bin/sleep 0.5 && /usr/bin/say -v 'Cellos' 'Its gonna be good'");
 }
 
 slate.bind("a:ctrl;cmd", function(){runIfAndFocus("Parallels Desktop");});
