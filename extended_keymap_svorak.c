@@ -4,8 +4,8 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = { /* Base */
   {KC_ESC,	 KC_LBRACKET,	KC_QUOTE,	  KC_SCOLON,	KC_P,	   KC_Y,	 KC_F,  	KC_G,	    KC_C,	    KC_R,	    KC_L,	    KC_BSPC},	
-  {FUNC(18), KC_A,	        KC_O,	      KC_E,	      KC_U,  	 KC_I,	 KC_D,	  KC_H,	    KC_T,	    KC_N,	    KC_S,	    KC_ENT},	
-  {KC_LSFT,	 KC_DOT,	      KC_Q,	      KC_J,	      KC_K,	   KC_X,	 KC_B,	  KC_M,	    KC_W,	    KC_V,	    KC_Z,	    KC_COMMA},	
+  {FUNC(18), KC_A,	      KC_O,	      KC_E,	      KC_U,  	 KC_I,	 KC_D,	  KC_H,	    KC_T,	    KC_N,	    KC_S,	    KC_ENT},	
+  {KC_LSFT,	 KC_DOT,	    KC_Q,	      KC_J,	      KC_K,	   KC_X,	 KC_B,	  KC_M,	    KC_W,	    KC_V,	    KC_Z,	    KC_COMMA},	
   {KC_LCTL,	 KC_LALT,	    KC_LGUI,	  FUNC(3),	  FUNC(2), KC_SPC, KC_SPC,	FUNC(1),	FUNC(3),	KC_LGUI,	KC_LALT,	KC_LCTL}
   },
 [1] = { /* QWERTY Base (lol åäö är typ borta orka vara seriös)*/
