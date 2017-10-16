@@ -1,0 +1,72 @@
+#include "keymap_common.h"
+#include "action_layer.h"
+
+#define SVORAK_LAYER 0
+#define SPECIAL_CHARACTERS_LAYER 1
+#define NUMBER_LAYER 2
+#define ARROW_LAYER 3
+#define QWERTY_LAYER 4
+
+const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+   KEYMAP( //0, svorak
+     ESC,  LBRACKET, QUOTE, SCOLON, P,    Y,   F,    G, C, R, L, BSPC, \
+     FN18, A,        O,     E,      U,    I,   D,    H, T, N, S, ENT, \
+     LSFT,  DOT,      Q,     J,      K,    X,   B,    M, W, V, Z, COMMA, \
+     LCTL, LALT,  LGUI,  FN0, FN22, FN2, RGUI, FN21),
+   KEYMAP( //1, special characters
+     FN15, FN4,  FN5,  FN6,  FN7,  FN8,  FN9,  FN10,  FN11, FN12, FN13, MINS, \
+     EQL,  FN23, FN24, GRV,  FN3,  FN26, FN25, BSLS,  FN27, FN28, FN16, SLASH, \
+     TRNS, FN29, TRNS, TRNS, TRNS, TRNS, TRNS, COMMA, FN30, FN31, TRNS,  FN14, \
+     TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS),
+   KEYMAP( //2, numbers
+     FN17, 1,    2,    3,    4,    5,    6,    7,   8,  9, 0,    FN19, \
+     TRNS, F1,   F2,   F3,   F4,   F5,   F6,   4,   5,  6, FN19, TRNS, \
+     TRNS, F7,   F8,   F9,   F10,  F11,  0,    1,   2,  3, F12,  TRNS, \
+     TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS),
+   KEYMAP( //3, arrows
+     MPLY, HOME, UP,   END,  TRNS,   TRNS, TRNS,   HOME, UP,   END,  TRNS, DEL, \
+     TRNS, LEFT, DOWN, RGHT, PGUP,   TRNS, PGUP,   LEFT, DOWN, RGHT, TRNS, TRNS, \
+     TRNS, TRNS, TRNS, TRNS, PGDOWN, TRNS, PGDOWN, TRNS, VOLD, VOLU, MPRV, MNXT, \
+     TRNS, TRNS, TRNS, TRNS, TRNS,   TRNS, TRNS,   TRNS),
+   KEYMAP( //4, qwerty
+     ESC,   Q, W, E, R, T, Y, U, I, O, P, BSPC, \
+     FN18,  A, S, D, F, G, H, J, K, L, SCOLON, ENT, \
+     LSFT,  Z, X, C, V, B, N, M, COMMA, DOT, SLASH, QUOTE, \
+     LCTL,  LALT,     LGUI,  FN0,   FN22, FN2, RGUI, FN21),
+};
+
+const action_t PROGMEM fn_actions[] = {
+    [0] =  ACTION_LAYER_TAP_KEY(SPECIAL_CHARACTERS_LAYER, KC_SPC),
+    [1]  = ACTION_MODS_ONESHOT(MOD_LSFT),//UNUSED
+    [2]  = ACTION_LAYER_MOMENTARY(ARROW_LAYER),
+    [3]  = ACTION_MODS_KEY(MOD_LSFT, KC_GRV),
+    [4]  = ACTION_MODS_KEY(MOD_LSFT, KC_1),
+    [5]  = ACTION_MODS_KEY(MOD_LSFT, KC_2),
+    [6]  = ACTION_MODS_KEY(MOD_LSFT, KC_3),
+    [7]  = ACTION_MODS_KEY(MOD_LSFT, KC_4),
+    [8]  = ACTION_MODS_KEY(MOD_LSFT, KC_5),
+    [9]  = ACTION_MODS_KEY(MOD_LSFT, KC_6),
+    [10] = ACTION_MODS_KEY(MOD_LSFT, KC_7),
+    [11] = ACTION_MODS_KEY(MOD_LSFT, KC_8),
+    [12] = ACTION_MODS_KEY(MOD_LSFT, KC_9),
+    [13] = ACTION_MODS_KEY(MOD_LSFT, KC_0),
+    [14] = ACTION_MODS_KEY(MOD_LSFT, KC_BSLS),
+    [15] = ACTION_MODS_KEY(MOD_LSFT, KC_RBRACKET),
+    [16] = ACTION_MODS_KEY(MOD_LSFT, KC_MINS),
+    [17] = ACTION_MODS_KEY(MOD_LSFT, KC_EQL),
+    [18] = ACTION_LAYER_TAP_KEY(ARROW_LAYER, KC_TAB),
+    [19] = ACTION_MODS_KEY(MOD_LSFT, KC_RBRC),
+    [20] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_COMMA),//UNUSED
+    [21] = ACTION_LAYER_TOGGLE(QWERTY_LAYER),
+    [22] = ACTION_LAYER_TAP_KEY(NUMBER_LAYER, KC_SPC),
+    [23] = ACTION_MODS_KEY(MOD_LALT, KC_2),
+    [24] = ACTION_MODS_KEY(MOD_LSFT, KC_SLASH),
+    [25] = ACTION_MODS_KEY(MOD_LALT, KC_7),
+    [26] = ACTION_MODS_KEY(MOD_LSFT | MOD_LALT, KC_7),
+    [27] = ACTION_MODS_KEY(MOD_LSFT | MOD_LALT, KC_8),
+    [28] = ACTION_MODS_KEY(MOD_LSFT | MOD_LALT, KC_9),
+    [29] = ACTION_MODS_KEY(MOD_LSFT, KC_DOT),
+    [30] = ACTION_MODS_KEY(MOD_LALT, KC_8),
+    [31] = ACTION_MODS_KEY(MOD_LALT, KC_9),
+    //maximum amount of actions reached D:
+};
