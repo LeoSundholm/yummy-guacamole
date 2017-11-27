@@ -2,10 +2,10 @@
 #include "action_layer.h"
 
 #define SVORAK_LAYER 0
-#define SPECIAL_CHARACTERS_LAYER 1
-#define NUMBER_LAYER 2
-#define ARROW_LAYER 3
-#define QWERTY_LAYER 4
+#define QWERTY_LAYER 1
+#define SPECIAL_CHARACTERS_LAYER 2
+#define NUMBER_LAYER 3
+#define ARROW_LAYER 4
 
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KEYMAP( //0, svorak
@@ -13,26 +13,26 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      FN18, A,        O,     E,      U,    I,   D,    H, T, N, S, ENT, \
      LSFT,  DOT,      Q,     J,      K,    X,   B,    M, W, V, Z, COMMA, \
      LCTL, LALT,  LGUI,  FN0, FN22, FN2, RGUI, FN21),
-   KEYMAP( //1, special characters
-     FN15, FN4,  FN5,  FN6,  FN7,  FN8,  FN9,  FN10,  FN11, FN12, FN13, MINS, \
-     EQL,  FN23, FN24, GRV,  FN3,  FN26, FN25, BSLS,  FN27, FN28, FN16, SLASH, \
-     TRNS, FN29, TRNS, TRNS, TRNS, TRNS, TRNS, COMMA, FN30, FN31, TRNS,  FN14, \
-     TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS),
-   KEYMAP( //2, numbers
-     FN17, 1,    2,    3,    4,    5,    6,    7,   8,  9, 0,    FN19, \
-     TRNS, F1,   F2,   F3,   F4,   F5,   F6,   4,   5,  6, FN19, TRNS, \
-     TRNS, F7,   F8,   F9,   F10,  F11,  0,    1,   2,  3, F12,  TRNS, \
-     TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS),
-   KEYMAP( //3, arrows
-     MPLY, HOME, UP,   END,  TRNS,   TRNS, TRNS,   HOME, UP,   END,  TRNS, DEL, \
-     TRNS, LEFT, DOWN, RGHT, PGUP,   TRNS, PGUP,   LEFT, DOWN, RGHT, TRNS, TRNS, \
-     TRNS, TRNS, TRNS, TRNS, PGDOWN, TRNS, PGDOWN, TRNS, VOLD, VOLU, MPRV, MNXT, \
-     TRNS, TRNS, TRNS, TRNS, TRNS,   TRNS, TRNS,   TRNS),
-   KEYMAP( //4, qwerty
+   KEYMAP( //1, qwerty
      ESC,   Q, W, E, R, T, Y, U, I, O, P, BSPC, \
      FN18,  A, S, D, F, G, H, J, K, L, SCOLON, ENT, \
      LSFT,  Z, X, C, V, B, N, M, COMMA, DOT, SLASH, QUOTE, \
      LCTL,  LALT,     LGUI,  FN0,   FN22, FN2, RGUI, FN21),
+   KEYMAP( //2, special characters
+     FN15, FN4,  FN5,  FN6,  FN7,  FN8,  FN9,  FN10,  FN11, FN12, FN13, MINS, \
+     EQL,  FN23, FN24, GRV,  FN3,  FN26, FN25, BSLS,  FN27, FN28, FN16, SLASH, \
+     TRNS, FN29, TRNS, TRNS, TRNS, TRNS, TRNS, COMMA, FN30, FN31, TRNS,  FN14, \
+     TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS),
+   KEYMAP( //3, numbers
+     FN17, 1,    2,    3,    4,    5,    6,    7,   8,  9, 0,    FN19, \
+     TRNS, F1,   F2,   F3,   F4,   F5,   F6,   4,   5,  6, FN19, TRNS, \
+     TRNS, F7,   F8,   F9,   F10,  F11,  0,    1,   2,  3, F12,  TRNS, \
+     TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS),
+   KEYMAP( //4, arrows
+     MPLY, HOME, UP,   END,  TRNS,   TRNS, TRNS,   HOME, UP,   END,  TRNS, DEL, \
+     TRNS, LEFT, DOWN, RGHT, PGUP,   TRNS, PGUP,   LEFT, DOWN, RGHT, TRNS, TRNS, \
+     TRNS, TRNS, TRNS, TRNS, PGDOWN, TRNS, PGDOWN, TRNS, VOLD, VOLU, MPRV, MNXT, \
+     TRNS, TRNS, TRNS, TRNS, TRNS,   TRNS, TRNS,   TRNS),
 };
 
 const action_t PROGMEM fn_actions[] = {
